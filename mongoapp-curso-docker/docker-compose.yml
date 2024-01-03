@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  chanchito:
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - monguito # Nombre del contenedor que va a utilizar los servicios de este contenedor
+  monguito:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - mongo-data:/data/db
+      # mysql -> /var/lib/mysql
+      # postgres -> /var/lib/postgresql/data
+
+volumes:
+  mongo-data:
